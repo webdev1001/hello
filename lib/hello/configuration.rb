@@ -23,9 +23,9 @@ module Hello
       EmailSignInController.send                :include, ex.email_sign_in
       SignOutController.send                    :include, ex.sign_out
       # Account Management
-      CurrentUsersController.send               :include, ex.update_profile
-      Passwords::ForgotPasswordController.send  :include, ex.forgot_password
-      Passwords::ResetPasswordController.send   :include, ex.reset_password
+      AccountManagement::CurrentUsersController.send               :include, ex.update_profile
+      AccountManagement::Passwords::ForgotPasswordController.send  :include, ex.forgot_password
+      AccountManagement::Passwords::ResetPasswordController.send   :include, ex.reset_password
 
       # Internals
       SignUpEntity::Mod.send                    :include, ex.email_sign_up

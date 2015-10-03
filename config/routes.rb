@@ -25,7 +25,51 @@ Hello::Engine.routes.draw do
   #
   # ACCOUNT MANAGEMENT
   #
-  resource :current_user, only: [:show, :update]
+
+  scope module: 'account_management' do
+    resource :current_user, only: [:show, :update]
+
+    #
+    # ACCOUNT MANAGEMENT - EMAILS
+    #
+
+    scope module: 'emails' do
+      resources :emails, only: [:index, :create, :destroy] do
+        member do
+          post "deliver"
+          get "confirm/:token" => "confirm_emails#confirm", as: 'confirm'
+        end
+        collection do
+          get "expired_token" => "confirm_emails#expired_token"
+        end
+      end
+    end
+
+
+    #
+    # ACCOUNT MANAGEMENT - PASSWORDS
+    #
+
+    scope module: 'passwords' do
+      resources :passwords, only: [:index, :show, :update] do
+        collection do
+          get  "forgot" => "forgot_password#index"
+          post "forgot" => "forgot_password#forgot"
+        end
+        member do
+          scope "/reset/:user_id/:token" do
+            get  "/" => "reset_password#index",  as: 'reset'
+            post "/" => "reset_password#update", as: nil
+          end
+        end
+      end
+    end
+  end
+
+
+  #
+  # AUTHENTICATION
+  #
 
   get   'sudo_mode'        => 'sudo_mode#form'
   patch 'sudo_mode'        => 'sudo_mode#authenticate'
@@ -33,49 +77,6 @@ Hello::Engine.routes.draw do
 
   get  'deactivation' => 'deactivation#index'
   post 'deactivation' => 'deactivation#deactivate'
-
-
-  #
-  # ACCOUNT MANAGEMENT - EMAILS
-  #
-
-  scope module: 'emails' do
-    resources :emails, only: [:index, :create, :destroy] do
-      member do
-        post "deliver"
-        get "confirm/:token" => "confirm_emails#confirm", as: 'confirm'
-      end
-      collection do
-        get "expired_token" => "confirm_emails#expired_token"
-      end
-    end
-  end
-
-
-  #
-  # ACCOUNT MANAGEMENT - PASSWORDS
-  #
-
-  scope module: 'passwords' do
-    resources :passwords, only: [:index, :show, :update] do
-      collection do
-        get  "forgot" => "forgot_password#index"
-        post "forgot" => "forgot_password#forgot"
-      end
-      member do
-        scope "/reset/:user_id/:token" do
-          get  "/" => "reset_password#index",  as: 'reset'
-          post "/" => "reset_password#update", as: nil
-        end
-      end
-    end
-  end
-
-
-
-  #
-  # AUTHENTICATION
-  #
 
   resources :accesses, only: [:index, :destroy]
   match  "sign_out" => "sign_out#sign_out", via: [:get, :post, :head, :put, :delete]

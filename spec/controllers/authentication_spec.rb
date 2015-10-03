@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 module Hello
+module AccountManagement
 
 describe "Authentication" do
   routes { Hello::Engine.routes }
@@ -17,7 +18,7 @@ describe "Authentication" do
         get :show
         expect(response.status).to eq(302)
         expect(response.status_message).to eq("Found")
-        
+
         # expect(session.keys).to match_array ["flash", "locale", "url"]
         expect(session.keys).to match_array ["locale", "url"]
         expect(session['locale']).to eq "en"
@@ -106,6 +107,6 @@ describe "Authentication" do
 
 end
 end
-
+end
 
 
