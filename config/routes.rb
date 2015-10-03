@@ -20,16 +20,6 @@ Hello::Engine.routes.draw do
   get  "sign_in"         => "email_sign_in#index"
   post "sign_in"         => "email_sign_in#authenticate"
 
-  resources :emails, only: [:index, :create, :destroy] do
-    member do
-      post "deliver"
-      get "confirm/:token" => "confirm_emails#confirm", as: 'confirm'
-    end
-    collection do
-      get "expired_token" => "confirm_emails#expired_token"
-    end
-  end
-
 
 
   #
@@ -46,18 +36,37 @@ Hello::Engine.routes.draw do
 
 
   #
-  # PASSWORD MANAGEMENT
+  # ACCOUNT MANAGEMENT - EMAILS
   #
 
-  resources :passwords, only: [:index, :show, :update] do
-    collection do
-      get  "forgot" => "forgot_password#index"
-      post "forgot" => "forgot_password#forgot"
+  scope module: 'emails' do
+    resources :emails, only: [:index, :create, :destroy] do
+      member do
+        post "deliver"
+        get "confirm/:token" => "confirm_emails#confirm", as: 'confirm'
+      end
+      collection do
+        get "expired_token" => "confirm_emails#expired_token"
+      end
     end
-    member do
-      scope "/reset/:user_id/:token" do
-        get  "/" => "reset_password#index",  as: 'reset'
-        post "/" => "reset_password#update", as: nil
+  end
+
+
+  #
+  # ACCOUNT MANAGEMENT - PASSWORDS
+  #
+
+  scope module: 'passwords' do
+    resources :passwords, only: [:index, :show, :update] do
+      collection do
+        get  "forgot" => "forgot_password#index"
+        post "forgot" => "forgot_password#forgot"
+      end
+      member do
+        scope "/reset/:user_id/:token" do
+          get  "/" => "reset_password#index",  as: 'reset'
+          post "/" => "reset_password#update", as: nil
+        end
       end
     end
   end

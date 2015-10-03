@@ -17,18 +17,18 @@ module Hello
 
     configuration.extensions.tap do |ex|
       # User Registration
-      EmailSignUpController.send     :include, ex.email_sign_up
-      DeactivationController.send    :include, ex.deactivation
+      EmailSignUpController.send                :include, ex.email_sign_up
+      DeactivationController.send               :include, ex.deactivation
       # User Authentication
-      EmailSignInController.send     :include, ex.email_sign_in
-      ForgotPasswordController.send  :include, ex.forgot_password
-      ResetPasswordController.send   :include, ex.reset_password
-      SignOutController.send         :include, ex.sign_out
+      EmailSignInController.send                :include, ex.email_sign_in
+      SignOutController.send                    :include, ex.sign_out
       # Account Management
-      CurrentUsersController.send    :include, ex.update_profile
+      CurrentUsersController.send               :include, ex.update_profile
+      Passwords::ForgotPasswordController.send  :include, ex.forgot_password
+      Passwords::ResetPasswordController.send   :include, ex.reset_password
 
       # Internals
-      SignUpEntity::Mod.send         :include, ex.email_sign_up
+      SignUpEntity::Mod.send                    :include, ex.email_sign_up
     end
   end
 
