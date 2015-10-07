@@ -1,11 +1,11 @@
-require_dependency "hello/application_controller"
+require_dependency 'hello/application_controller'
 
 module Hello
   class Webmaster::UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
     dont_kick :webmaster, except: [:impersonate_back]
-    
+
     # GET /webmaster/users
     def index
       @users = User.order(:id)
@@ -53,9 +53,6 @@ module Hello
     #   end
     # end
 
-
-
-
     # POST /webmaster/users/1/impersonate
     def impersonate
       hello_impersonate(@user)
@@ -74,17 +71,16 @@ module Hello
       redirect_to hello.webmaster_path
     end
 
-
-
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_user
-        @user = User.find(params[:id])
-      end
 
-      # # Only allow a trusted parameter "white list" through.
-      # def user_params
-      #   params.require(:user).permit(:username, :name, :role, :locale, :time_zone)
-      # end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    # # Only allow a trusted parameter "white list" through.
+    # def user_params
+    #   params.require(:user).permit(:username, :name, :role, :locale, :time_zone)
+    # end
   end
 end

@@ -1,7 +1,6 @@
 Hello.configure do |config|
-
   config.mailer_sender = 'hello@example.com'
-  
+
   config.password_length = 4..200
   config.username_length = 4..32
   config.username_regex  = /\A[a-z0-9_-]+\z/i
@@ -17,5 +16,4 @@ Hello.configure do |config|
   config.extensions.encrypt_password = Hello::Extensions::EncryptPassword
   # Account Management
   config.extensions.update_profile   = Hello::Extensions::UpdateProfile
-
 end

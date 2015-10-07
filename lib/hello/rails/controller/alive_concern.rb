@@ -2,7 +2,6 @@ module Hello
   module Rails
     module Controller
       module AliveConcern
-        
         extend ActiveSupport::Concern
 
         module ClassMethods
@@ -13,7 +12,7 @@ module Hello
         end
 
         # filters
-        
+
         def hello_keep_alive
           periodically_delete_expired_accesses_from_database
 
@@ -23,11 +22,10 @@ module Hello
           logger.info "  #{'Hello Session'.bold.light_blue} expires in #{expires_in}"
         end
 
-            # TODO: find a better way
-            def periodically_delete_expired_accesses_from_database
-              Access.cached_delete_all_expired
-            end
-
+        # TODO: find a better way
+        def periodically_delete_expired_accesses_from_database
+          Access.cached_delete_all_expired
+        end
       end
     end
   end

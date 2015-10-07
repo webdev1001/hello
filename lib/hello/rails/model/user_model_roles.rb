@@ -2,13 +2,10 @@ module Hello
   module UserModelRoles
     extend ActiveSupport::Concern
 
-
-
     # included do
     # end
 
     module ClassMethods
-
       def mock_guest
         new(role: 'guest')
       end
@@ -33,10 +30,7 @@ module Hello
       def webmaster_role
         'webmaster'
       end
-
     end
-
-
 
     def guest?
       role == 'guest'
@@ -48,7 +42,7 @@ module Hello
 
     def user?
       webmaster? ||
-      role == self.class.user_role
+        role == self.class.user_role
     end
 
     def webmaster?
@@ -56,18 +50,12 @@ module Hello
     end
 
     def role_is?(role)
-      self.send("#{role}?")
+      send("#{role}?")
     end
-
-
 
     # def turn_onboarding_to_user!
     #   # place additional code here
     #   update! role: User.user_role
     # end
-
-
-
-
   end
 end

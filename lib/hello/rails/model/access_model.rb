@@ -10,11 +10,11 @@ module Hello
       a_os = "#{obj.os.name} #{obj.os.version && obj.os.version.major}".strip
       a_device = obj.device.name
 
-      a_browser = a_browser.gsub("IE", "Internet Explorer") if a_browser.start_with? "IE"
+      a_browser = a_browser.gsub('IE', 'Internet Explorer') if a_browser.start_with? 'IE'
 
-      if a_device == "Other"
+      if a_device == 'Other'
         "#{a_os} - #{a_browser}"
-      elsif a_device == "Spider"
+      elsif a_device == 'Spider'
         "Spider: #{a_browser}"
       else
         "#{a_os} (#{a_device}) - #{a_browser}"
@@ -33,8 +33,6 @@ module Hello
       end
     end
 
-
-
     included do
       belongs_to :user, counter_cache: true
 
@@ -46,16 +44,13 @@ module Hello
       end
     end
 
-
-
     #
     # JSON
     #
     def to_json_web_api
-      hash = attributes.slice(*%w[expires_at token user_id])
-      hash.merge!({user: user.to_json_web_api})
+      hash = attributes.slice(*%w(expires_at token user_id))
+      hash.merge!({ user: user.to_json_web_api })
     end
-
 
     module ClassMethods
       def delete_all_expired
@@ -67,7 +62,5 @@ module Hello
         @@delete_all_expired ||= delete_all_expired
       end
     end
-
-
   end
 end

@@ -1,5 +1,5 @@
 module Hello
-  # 
+  #
   # https://github.com/toolmantim/user_agent_parser
   #
 
@@ -9,5 +9,4 @@ module Hello
   def self.user_agent_parser
     USER_AGENT_PARSER
   end
-
 end

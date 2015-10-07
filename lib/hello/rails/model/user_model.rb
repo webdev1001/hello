@@ -1,5 +1,5 @@
-require_relative "user_model_username"
-require_relative "user_model_roles"
+require_relative 'user_model_username'
+require_relative 'user_model_roles'
 
 module Hello
   module UserModel
@@ -8,7 +8,7 @@ module Hello
     included do
       has_many :credentials,       dependent: :destroy
       has_many :email_credentials, dependent: :destroy
-      has_one  :password_credential, dependent: :destroy
+      has_one :password_credential, dependent: :destroy
       has_many :password_credentials, dependent: :destroy
       has_many :accesses, dependent: :destroy
 
@@ -23,7 +23,7 @@ module Hello
     # NOTE:
     # dup your changes on lib/generators/hello/install/templates/user.rb
     def to_json_web_api
-      attributes.reject { |k, v| k.include?("password") }
+      attributes.reject { |k, _v| k.include?('password') }
     end
 
     def destroy
@@ -33,7 +33,7 @@ module Hello
       # therefore, an instance variable used as a flag will not work for Rails 4.0
       # It will however, work for Rails 4.1 and 4.2
       # @hello_is_this_being_destroyed = true
-      Thread.current["Hello.destroying_user"] = true
+      Thread.current['Hello.destroying_user'] = true
       super
     end
 
@@ -41,28 +41,21 @@ module Hello
     #   !!@hello_is_this_being_destroyed
     # end
 
-
     def password_is?(plain_text_password)
       password_credential.password_is?(plain_text_password)
     end
 
-
-
-
-
     module ClassMethods
-
       def hello_apply_config!
         Hello.configuration.tap do |c|
           PasswordCredential.hello_apply_config!
           validates_format_of :username, with: c.username_regex
           validates_length_of :username,
-                                   in: c.username_length,
-                                   too_long:  'maximum of %{count} characters',
-                                   too_short: 'minimum of %{count} characters'
+                              in: c.username_length,
+                              too_long:  'maximum of %{count} characters',
+                              too_short: 'minimum of %{count} characters'
         end
       end
     end
-
   end
 end

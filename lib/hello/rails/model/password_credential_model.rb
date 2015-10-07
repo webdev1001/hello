@@ -2,7 +2,6 @@ module Hello
   module PasswordCredentialModel
     extend ActiveSupport::Concern
 
-
     included do
       attr_reader :password
       validates_presence_of :password, on: :create
@@ -12,25 +11,21 @@ module Hello
     end
 
     module ClassMethods
-
       def hello_apply_config!
         Hello.configuration.tap do |c|
-          validates_length_of  :password,
-                                    in: c.password_length,
-                                    too_long:  'maximum of %{count} characters',
-                                    too_short: 'minimum of %{count} characters',
-                                    if: :digest_changed?
+          validates_length_of :password,
+                              in: c.password_length,
+                              too_long:  'maximum of %{count} characters',
+                              too_short: 'minimum of %{count} characters',
+                              if: :digest_changed?
         end
       end
-
     end
 
     def password=(value)
       # puts "password=('#{value}')".blue
-      if value.blank?
-        self.digest = @password = nil
-      end
-      value = value.to_s.gsub(' ', '')
+      self.digest = @password = nil if value.blank?
+      value = value.to_s.delete(' ')
       @password = value
 
       self.digest = password_encryption_extension.encrypt(value)
@@ -43,7 +38,6 @@ module Hello
     def password_encryption_extension
       Hello.configuration.extensions.encrypt_password
     end
-
 
     private
 
@@ -58,8 +52,5 @@ module Hello
     # def is_last_password_credential?
     #   user.password_credentials.count == 1
     # end
-
-
-
   end
 end

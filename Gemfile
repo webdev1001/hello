@@ -1,5 +1,6 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "rails", github: "rails/rails", branch: "4-2-stable"
+gem 'rails', github: 'rails/rails', branch: '4-2-stable'
+gem 'rubocop', require: false
 
 gemspec

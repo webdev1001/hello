@@ -1,6 +1,5 @@
 module Hello
   class SignOutController < ApplicationController
-
     dont_kick_people
 
     # GET /hello/sign_out
@@ -9,9 +8,8 @@ module Hello
 
       @sign_out = SignOutEntity.new
       flash[:notice] = @sign_out.success_message
-      
+
       success
     end
-
   end
 end

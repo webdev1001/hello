@@ -3,7 +3,6 @@
 module Hello
   module Extensions
     module EmailSignUp
-
       def fields
         %w(name username time_zone locale)
       end
@@ -54,7 +53,6 @@ module Hello
         url   = hello.confirm_email_url(@sign_up.email_credential, token)
         Hello::RegistrationMailer.confirm_email(@sign_up.email_credential, url).deliver
       end
-
     end
   end
 end

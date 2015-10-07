@@ -1,8 +1,7 @@
-require_dependency "hello/application_controller"
+require_dependency 'hello/application_controller'
 
 module Hello
   class SwitchUsersController < ApplicationController
-
     dont_kick_people
 
     before_actions do
@@ -17,21 +16,20 @@ module Hello
     # GET /hello/switch_users/1
     def switch
       self.session_token = @access.token
-      redirect_to hello.switch_users_path, notice: "Switched Accounts Successfully!"
+      redirect_to hello.switch_users_path, notice: 'Switched Accounts Successfully!'
     end
 
     # DELETE /hello/switch_users/1
     def forget
       @access.destroy
       self.session_token = nil
-      redirect_to hello.switch_users_path, notice: "Signed Out Successfully!"
+      redirect_to hello.switch_users_path, notice: 'Signed Out Successfully!'
     end
 
     private
 
     def current_accesses_find_by_id(string)
-      current_accesses.select { |at| at.id.to_s == string }.first
+      current_accesses.find { |at| at.id.to_s == string }
     end
-
   end
 end

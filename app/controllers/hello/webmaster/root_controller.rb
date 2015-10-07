@@ -1,4 +1,4 @@
-require_dependency "hello/application_controller"
+require_dependency 'hello/application_controller'
 
 #
 # IT IS RECOMMENDED THAT YOU DO NOT OVERRIDE THIS FILE IN YOUR APP
@@ -6,12 +6,10 @@ require_dependency "hello/application_controller"
 
 module Hello
   class Webmaster::RootController < ApplicationController
-
     dont_kick :webmaster
 
     # GET /hello/webmaster
     def index
     end
-
   end
 end

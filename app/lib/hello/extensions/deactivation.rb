@@ -3,7 +3,6 @@
 module Hello
   module Extensions
     module Deactivation
-
       def deactivate!
         # current_user.update! deactivated_at: Time.now
         # current_user.update! deactivated: true
@@ -15,11 +14,9 @@ module Hello
       def success
         respond_to do |format|
           format.html { redirect_to '/' }
-          format.json { render json: {deactivated: true}, status: :ok }
+          format.json { render json: { deactivated: true }, status: :ok }
         end
       end
-
-
     end
   end
 end

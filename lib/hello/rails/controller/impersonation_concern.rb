@@ -2,7 +2,6 @@ module Hello
   module Rails
     module Controller
       module ImpersonationConcern
-        
         extend ActiveSupport::Concern
 
         module ClassMethods
@@ -31,7 +30,6 @@ module Hello
           # check StatefulRequestManager for a reference to session['impersonated']
           !!session['impersonated']
         end
-
       end
     end
   end

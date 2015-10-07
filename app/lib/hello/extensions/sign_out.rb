@@ -3,7 +3,6 @@
 module Hello
   module Extensions
     module SignOut
-
       def success
         respond_to do |format|
           # format.html { redirect_to hello.root_path }
@@ -12,7 +11,6 @@ module Hello
           format.json { head :reset_content }
         end
       end
-
     end
   end
 end

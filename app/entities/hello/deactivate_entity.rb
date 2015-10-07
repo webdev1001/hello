@@ -1,9 +1,7 @@
 module Hello
   class DeactivateEntity < AbstractEntity
-
     def info_message
-      t("info")
+      t('info')
     end
-
   end
 end

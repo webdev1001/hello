@@ -9,15 +9,11 @@ class User < ActiveRecord::Base
   # has_many :things_to_nulify,   dependent: :nullify
   # has_many :things_to_restrict, dependent: :restrict_with_error
 
-
-
-
   def to_param
     username
   end
-  
+
   def to_json_web_api
-    attributes.reject { |k, v| k.include?("password") }
+    attributes.reject { |k, _v| k.include?('password') }
   end
-  
 end
